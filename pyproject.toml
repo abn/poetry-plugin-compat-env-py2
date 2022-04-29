@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "poetry-plugin-compat-env-py2"
+version = "0.1.0"
+description = "Poetry Plugin: Python 2 Environment Compatibility Patch"
+authors = ["Arun Babu Neelicattu <arun.neelicattu@gmail.com>"]
+readme = "README.md"
+packages = [{include = "poetry_plugin_compat_env_py2", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+poetry = {git = "https://github.com/python-poetry/poetry.git", rev = "master"}
+
+[tool.poetry.dev-dependencies]
+pre-commit = "^2.18.1"
+
+[tool.poetry.plugins."poetry.plugin"]
+compat-env-py2 = "poetry_plugin_compat_env_py2.plugins:CompatEnvPy2Plugin"
+
+[tool.isort]
+py_version = 37
+profile = "black"
+force_single_line = true
+combine_as_imports = true
+lines_between_types = 1
+lines_after_imports = 2
+src_paths = ["src", "tests"]
+
+[tool.black]
+target-version = ['py37']
+preview = true
+
+[tool.mypy]
+check_untyped_defs = true
+ignore_missing_imports = true
+show_error_codes = true
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = true
+files = "src"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
