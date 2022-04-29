@@ -6,6 +6,7 @@ import textwrap
 
 from pathlib import Path
 from typing import TYPE_CHECKING
+from typing import Callable
 
 from packaging.tags import Tag
 from poetry.plugins.plugin import Plugin
@@ -18,7 +19,9 @@ if TYPE_CHECKING:
 
 
 logger = logging.getLogger("poetry-plugin-compat-env-py2")
-original_get_supported_tags = VirtualEnv.get_supported_tags
+original_get_supported_tags: Callable[
+    [VirtualEnv], list[Tag]
+] = VirtualEnv.get_supported_tags
 
 
 def get_supported_tags(self: VirtualEnv) -> list[Tag]:
@@ -59,6 +62,6 @@ def get_supported_tags(self: VirtualEnv) -> list[Tag]:
     return [Tag(*t) for t in json.loads(output)]
 
 
-class CompatEnvPy2Plugin(Plugin):
+class CompatEnvPy2Plugin(Plugin):  # type: ignore[misc]
     def activate(self, poetry: Poetry, io: IO) -> None:
         VirtualEnv.get_supported_tags = get_supported_tags

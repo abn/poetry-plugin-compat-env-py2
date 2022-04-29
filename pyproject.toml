@@ -12,6 +12,7 @@ poetry = {git = "https://github.com/python-poetry/poetry.git", rev = "master"}
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.18.1"
+pytest = "^7.1.2"
 
 [tool.poetry.plugins."poetry.plugin"]
 compat-env-py2 = "poetry_plugin_compat_env_py2.plugins:CompatEnvPy2Plugin"
@@ -30,13 +31,12 @@ target-version = ['py37']
 preview = true
 
 [tool.mypy]
-check_untyped_defs = true
-ignore_missing_imports = true
+strict = true
+explicit_package_bases = true
+namespace_packages = true
 show_error_codes = true
-warn_redundant_casts = true
-warn_unused_configs = true
-warn_unused_ignores = true
-files = "src"
+mypy_path = "src"
+files = "src, tests"
 
 
 [build-system]
