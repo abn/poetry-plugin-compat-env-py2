@@ -82,5 +82,5 @@ jobs:
           cd legacy-project
           sed -i s/'^python =.*$'/'python = "^2.7"'/ pyproject.toml
           poetry install
-          $(poetry run python --version) | grep "Python 2.7"
+          echo $(poetry run python --version) | grep "Python 2.7"
           poetry add -vvv six
